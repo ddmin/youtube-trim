@@ -37,7 +37,6 @@ for file in os.listdir(SONGDIR):
         ]
     )
 
-            # '-map_metadata', '-1',
     subprocess.run(
         [
             'ffmpeg',
@@ -62,7 +61,18 @@ for file in os.listdir(SONGDIR):
         ]
     )
 
+    # lame add album art
+    subprocess.run(
+        [
+            'lame',
+            '--ti', art,
+            f'{file}.mp3.mp3'
+
+        ]
+    )
+
     subprocess.run(['rm', f'{file}'])
     subprocess.run(['rm', f'{file}.mp3'])
-    subprocess.run(['mv', f'{file}.mp3.mp3', f'{PROCDIR}/{file}'])
+    subprocess.run(['rm', f'{file}.mp3.mp3'])
+    subprocess.run(['mv', f'{file}.mp3.mp3.mp3', f'{PROCDIR}/{file}'])
     print('='*60)

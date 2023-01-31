@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # yt-trim: download and label mp3 files
 # Dependencies: ffmpeg, yt-dlp
@@ -112,8 +112,20 @@ for song in songs:
         ]
     )
 
+    # lame add album art
+    subprocess.run(
+        [
+            'lame',
+            '--ti', art,
+            filename+'.mp3'
+
+        ]
+    )
+
     subprocess.run(['rm', filename+'_pre.mp3'])
     subprocess.run(['rm', filename+'_pre_pre.mp3'])
+    subprocess.run(['rm', filename+'.mp3'])
+    subprocess.run(['mv', filename+'.mp3.mp3', filename+'.mp3'])
 
     print('='*60)
 
